@@ -1,0 +1,7 @@
+---
+# tasks file for bashrc
+
+- name: Configure /etc/bashrc
+  lineinfile: dest=/etc/bashrc regexp='' insertafter=EOF line=' {{ bashrc_shell }} '
+  tags:
+    - bashrc_config 

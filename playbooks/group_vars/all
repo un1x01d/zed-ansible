@@ -1,0 +1,6 @@
+base_packages:
+  - epel-release
+  - net-tools
+  - bind-utils
+  - mlocate
+  - vim-enhanced

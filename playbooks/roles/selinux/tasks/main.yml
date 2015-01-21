@@ -1,0 +1,16 @@
+---
+
+  - name: Install Libs to disable SELinux
+    yum: name={{ item }} state=latest
+    with_items: 
+      - libselinux-python 
+      - policycoreutils
+
+  - stat: path=/etc/selinux/config
+    register: se
+
+  - name: Disable SELinux
+    selinux: state=disabled
+    when: se.stat.isfile is defined and se.stat.isfile 
+    tags:
+      - disable_selinux

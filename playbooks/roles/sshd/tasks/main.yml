@@ -1,0 +1,13 @@
+---
+
+  - name: Configure SSHD
+    lineinfile: dest=/etc/ssh/sshd_config regexp="^.*Banner " insertafter="^#Listen " line="Banner /etc/banner"
+    notify: restart sshd
+    tags:
+      - configure_sshd
+
+  - name: Set SSH Banner
+    template: src=banner.j2 dest=/etc/banner
+    tags:
+      - configure_sshd
+      - set_banner 

@@ -1,0 +1,6 @@
+---
+
+  - name: Install banner profile
+    template: src=banner.sh.j2 dest=/etc/profile.d/banner.sh
+    tags:
+      - install_banner

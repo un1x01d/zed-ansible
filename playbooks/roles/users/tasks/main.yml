@@ -1,0 +1,15 @@
+---
+
+  - name: Create Groups
+    group: name={{ item }} state=present
+    with_items:
+       - "{{ user_list }}"
+    tags:
+      - create_users
+
+  - name: Create Users 
+    user: name={{ item }} group=zed shell=/bin/bash state=present
+    with_items:
+       - "{{ user_list }}"
+    tags:
+      - create_users

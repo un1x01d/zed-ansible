@@ -1,0 +1,11 @@
+web_root: /var/www/html
+phpsysinfo_repo: https://github.com/phpsysinfo/phpsysinfo.git
+sysinfo_packages:
+  - httpd
+  - git 
+  - openssl
+  - php
+  - php-common
+  - php-gd
+  - php-xml
+  - php-mbstring

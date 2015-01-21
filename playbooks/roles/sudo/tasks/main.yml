@@ -1,0 +1,8 @@
+# Set up a simple sudoers file
+---
+
+  - name: Setup  Sudoers 
+    yum: name=sudo state=latest
+
+  - name: Configure Sudoers 
+    template: src=sudoers.j2 dest=/etc/sudoers validate='/usr/sbin/visudo -cf %s'

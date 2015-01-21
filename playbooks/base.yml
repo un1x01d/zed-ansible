@@ -1,0 +1,40 @@
+---
+
+# Configure Basic settings 
+  - hosts: localhost
+    sudo: no
+    handlers:
+    - include: ../handlers/handlers.yml
+    tasks:
+    - name: Notify of start
+      action: command echo "Sending notification"
+      notify: email start
+
+  - hosts: all
+    sudo: yes
+    tasks:
+      - name: Install Base Packages
+        yum: name={{item}} state=latest
+        with_items: 
+          - "{{ base_packages }}"
+        tags:
+          - install_base_packages
+    roles:
+      - yum-update
+      - selinux
+      - users
+      - sudo
+      - bashrc
+      - profile
+      - sshd
+      - ntp
+      - rsyslog 
+
+  - hosts: localhost
+    sudo: no
+    handlers:
+    - include: ../handlers/handlers.yml
+    tasks:
+    - name: Notify of Completion 
+      action: command echo "Sending notification"
+      notify: email complete 

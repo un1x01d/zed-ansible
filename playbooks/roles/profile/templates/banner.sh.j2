@@ -1,0 +1,9 @@
+echo -e "$(tput bold)$(tput setaf 4)#############################################################$(tput sgr0)
+   $(tput setaf 5) Logged in as: $(tput setaf 7)`whoami` $(tput sgr0)
+   $(tput setaf 5) HOSTNAME: $(tput setaf 7)`hostname` $(tput sgr0)
+   $(tput setaf 5) OS: $(tput setaf 7)`[[ -e /etc/os-release ]] && . /etc/os-release && echo $PRETTY_NAME || cat /etc/redhat-release` $(tput sgr0)
+   $(tput setaf 5) Uptime: $(tput setaf 7)`uptime | sed 's/^.*up *//;s/, *[0-9]* user.*$/m/; s/ day[^0-9]*/d, /;s/ \([hms]\).*m$/\1/;s/:/h, /'` $(tput sgr0)
+   $(tput setaf 5) Current Time: $(tput setaf 7)`date` $(tput sgr0)
+   $(tput setaf 5) Current Load: $(tput setaf 7)`uptime | awk -F'average:' '{print $2}'` $(tput sgr0)
+   $(tput setaf 5) RAM Utilization: $(tput setaf 7)`free -om | head -2 | tail -1 | awk '{print "Total:"$2"MB"" Used:"$3"MB" " Free:"$4"MB"}'` $(tput sgr0)
+$(tput bold)$(tput setaf 4)#############################################################$(tput sgr0)"

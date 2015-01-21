@@ -1,0 +1,30 @@
+---
+
+  - name: Install Dependencies
+    yum: name={{ item }} state=latest
+    with_items:
+      - "{{ sysinfo_packages }}"
+    tags:
+      - install_sysinfo
+      - sysinfo_install_dependencies
+
+  - name: Create Document Root
+    file: path={{ web_root }}/{{ inventory_hostname }} state=directory
+    tags:
+      - install_sysinfo
+
+  - name: Configure Vhost
+    template: src=hostname_vhost.yml dest=/etc/httpd/conf.d/{{ inventory_hostname }}.conf
+    notify: restart httpd
+    tags:
+      - install_sysinfo
+
+  - name: Retrieve latest copy of PhpSysinfo
+    git: repo={{ phpsysinfo_repo }} update=yes
+         dest={{ web_root }}/{{ inventory_hostname }}/sysinfo
+    tags:
+      - install_sysinfo
+      - git_clone_sysinfo
+
+  - name: Copy PhpSyinfo Configuration
+    command: cp {{ web_root }}/{{ inventory_hostname }}/sysinfo/phpsysinfo.ini.new {{ web_root }}/{{ inventory_hostname }}/sysinfo/phpsysinfo.ini

@@ -1,0 +1,19 @@
+---
+
+  - name: email start
+    action: mail 
+                  host='127.0.0.1'
+                  port='25'
+                  body="Started"
+                  subject="Ansible-Report - Started"
+                  from="ZeD <zedchel@gmail.com>"
+                  to="ZeD <zedchel@gmail.com>"
+
+  - name: email complete 
+    action: mail 
+                  host='127.0.0.1'
+                  port='25'
+                  body="Completed"
+                  subject="Ansible-Report - Completed"
+                  from="ZeD <zedchel@gmail.com>"
+                  to="ZeD <zedchel@gmail.com>"

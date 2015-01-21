@@ -1,0 +1,7 @@
+---
+
+# Configure Basic settings 
+  - hosts: tx
+    sudo: yes
+    roles:
+      - sysinfo 
