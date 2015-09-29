@@ -1,0 +1,18 @@
+---
+
+  - name: Install NRPE
+    yum: name=nrpe state=latest
+    tags:
+      - install_nrpe
+
+  - name: Install Nagios Plugins
+    yum: name=nagios-plugins* state=latest
+    tags:
+      - install_nagios-plugins
+
+  - name: Drop NRPE Config 
+    template: src=nrpe.cfg.j2 dest=/etc/nagios/nrpe.cfg
+    tags:
+      - config_nrpe
+
+  - service: name=nrpe state=restarted

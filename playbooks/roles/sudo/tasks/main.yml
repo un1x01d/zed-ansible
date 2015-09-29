@@ -6,3 +6,5 @@
 
   - name: Configure Sudoers 
     template: src=sudoers.j2 dest=/etc/sudoers validate='/usr/sbin/visudo -cf %s'
+    tags:
+      - config_sudoers

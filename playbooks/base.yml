@@ -1,40 +1,53 @@
 ---
 
 # Configure Basic settings 
-  - hosts: localhost
-    sudo: no
-    handlers:
-    - include: ../handlers/handlers.yml
-    tasks:
-    - name: Notify of start
-      action: command echo "Sending notification"
-      notify: email start
+#  - hosts: localhost
+#    sudo: no
+#    handlers:
+#    - include: ../handlers/handlers.yml
+#    tasks:
+#    - name: Notify of start
+#      action: command echo "Sending notification"
+#      notify: email start
 
   - hosts: all
     sudo: yes
-    tasks:
-      - name: Install Base Packages
-        yum: name={{item}} state=latest
-        with_items: 
-          - "{{ base_packages }}"
-        tags:
-          - install_base_packages
     roles:
+      - base_packages 
       - yum-update
       - selinux
       - users
       - sudo
       - bashrc
       - profile
-      - sshd
+      #- sshd
       - ntp
+      - nrpe
       - rsyslog 
+      - ansible-sshd  
+    vars: 
+      sshd_skip_defaults: true
+      sshd:
+       Compression: true
+       Banner: /etc/banner
+       ListenAddress:
+         - "0.0.0.0"
+       ClientAliveInterval: "300"
+       GSSAPIAuthentication: no
+       PermitRootLogin: no
+       Match:
+         - Condition: "Group user"
+           GSSAPIAuthentication: yes
+      #sshd_UsePrivilegeSeparation: sandbox
+      sshd_match:
+        - Condition: "Group xusers"
+          X11Forwarding: no 
 
-  - hosts: localhost
-    sudo: no
-    handlers:
-    - include: ../handlers/handlers.yml
-    tasks:
-    - name: Notify of Completion 
-      action: command echo "Sending notification"
-      notify: email complete 
+#  - hosts: localhost
+#    sudo: no
+#    handlers:
+#    - include: ../handlers/handlers.yml
+#    tasks:
+#    - name: Notify of Completion 
+#      action: command echo "Sending notification"
+#      notify: email complete 

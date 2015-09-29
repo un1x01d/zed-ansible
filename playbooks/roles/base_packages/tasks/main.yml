@@ -1,0 +1,8 @@
+---
+
+  - name: Install Base Packages
+    yum: name={{item}} state=latest
+    with_items: 
+      - "{{ base_packages }}"
+    tags:
+      - install_base_packages

@@ -1,4 +1,7 @@
 # {{ansible_managed}}
 {% for i in sudo_users %}
 {{i}} ALL=(ALL) {{"NOPASSWD: " if sudo_nopasswd else ""}}ALL
+Defaults:nagios !requiretty
+nagios      ALL=(ALL)   NOPASSWD:   /usr/lib64/nagios/plugins/
+nagios      ALL=(ALL)   NOPASSWD:   /usr/lib/nagios/plugins/
 {% endfor %}
